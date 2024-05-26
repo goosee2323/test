@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мій месенджер</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .chat-header {
+            background-color: #f0f0f0;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-header h1 {
+            margin: 0;
+        }
+
+        .chat-body {
+            flex: 1;
+            overflow-y: scroll;
+        }
+
+        .chat-message {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+        }
+
+        .chat-message.self {
+            text-align: right;
+            background-color: #d0d0d0;
+        }
+
+        .chat-input {
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+
+        .chat-input input {
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .chat-input button {
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="chat-header">
+            <h1> Masanger</h1>
+        </div>
+        <div class="chat-body">
+            </div>
+        <div class="chat-input">
+            <input type="text" placeholder="Введіть повідомлення">
+            <button>Відправити</button>
+        </div>
+    </div>
+
+    <script>
+        const chatBody = document.querySelector('.chat-body');
+        const chatInput = document.querySelector('.chat-input input');
+        const chatInputButton = document.querySelector('.chat-input button');
+
+        chatInputButton.addEventListener('click', () => {
+            const message = chatInput.value.trim();
+
+            if (message) {
+                const messageElement = createMessageElement(message, true);
+                chatBody.appendChild(messageElement);
+                chatBody.scrollTop = chatBody.scrollHeight;
+                chatInput.value = '';
+            }
+        });
+
+        function createMessageElement(message, self) {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('chat-message');
+            if (self) {
+                messageElement.classList.add('self');
+            }
+            messageElement.textContent = message;
+            return messageElement;
+        }
+    </script>
+</body>
+</html>
